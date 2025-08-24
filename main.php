@@ -1,3 +1,25 @@
+<?php
+session_start();
+
+// Session-Timeout (30 Minuten)
+$session_timeout = 1800;
+
+// Überprüfen, ob der Benutzer angemeldet ist
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    header('Location: index.php');
+    exit;
+}
+
+// Session-Timeout prüfen
+if (isset($_SESSION['login_time']) && (time() - $_SESSION['login_time'] > $session_timeout)) {
+    session_destroy();
+    header('Location: index.php?timeout=1');
+    exit;
+}
+
+// Session-Zeit aktualisieren bei Aktivität
+$_SESSION['login_time'] = time();
+?>
 <!doctype html>
 <html lang="de">
 
@@ -7,7 +29,8 @@
     <meta name="theme-color" content="#0e0f12">
     <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
     <meta name="author" content="Alexander Palmer">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';">
+    <meta http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';">
     <title>Hochzeitsalbum – René &amp; Stefanie</title>
     <meta name="description" content="Ein liebevoll gestaltetes Fotoalbum der Hochzeit von René &amp; Stefanie.">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +38,7 @@
       rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="preload" as="fetch" href="assets/manifest.json" crossorigin="anonymous">
-    <meta property="og:title" content="Hochzeitsalbum – René &amp; Stefanie">
+    <meta property="og:title" content="Hochzeitsalbum –  Stefanie&amp;René">
     <meta property="og:description" content="Ein liebevoll gestaltetes Fotoalbum der Hochzeit von René &amp; Stefanie.">
     <meta property="og:type" content="website">
   </head>
@@ -23,7 +46,7 @@
   <body class="no-js">
     <header class="site-header" role="banner">
       <div class="wrap">
-        <h1 class="title">René &amp; Stefanie</h1>
+        <h1 class="title"> Stefanie &amp; René</h1>
         <p class="subtitle">Hochzeitsalbum</p>
       </div>
     </header>
@@ -49,7 +72,7 @@
 
     <footer class="site-footer">
       <div class="wrap">
-        <p>Mit Liebe gestaltet · 13.08.2025 · Alexander Palmer</p>
+        <p>Mit Liebe gestaltet · 13.08.2025 · Alexander Palmer | <a href="logout.php" style="color: var(--accent); text-decoration: none;">Abmelden</a></p>
       </div>
     </footer>
 

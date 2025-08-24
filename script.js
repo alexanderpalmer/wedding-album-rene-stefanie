@@ -116,16 +116,45 @@
 
   filtersContainer.appendChild(filterFragment);
 
+  // Store original card order for restoration
+  const originalCards = [...$$('.card', gallery)];
+  
   // Filtering
   const filters = $$('.filter');
   filters.forEach(btn => btn.addEventListener('click', () => {
     filters.forEach(b => b.classList.remove('is-active'));
     btn.classList.add('is-active');
     const token = btn.dataset.filter;
-    $$('.card', gallery).forEach(card => {
-      const show = token === '*' || (card.dataset.tags || '').split(' ').includes(token);
-      card.style.display = show ? 'block' : 'none';
-    });
+    
+    // Clear gallery first
+    gallery.innerHTML = '';
+    
+    if (token === '*') {
+      // Show all cards in original order
+      originalCards.forEach(card => {
+        card.style.display = 'block';
+        gallery.appendChild(card);
+      });
+    } else {
+      // Filter manifest items by tag and sort by image number
+      const filteredManifest = manifest
+        .filter(item => (item.tags || []).includes(token))
+        .sort((a, b) => {
+          const numA = parseInt(a.slug.match(/-(\d+)$/)?.[1] || '0', 10);
+          const numB = parseInt(b.slug.match(/-(\d+)$/)?.[1] || '0', 10);
+          return numA - numB;
+        });
+      
+      // Find corresponding cards and add them in sorted order
+      filteredManifest.forEach(item => {
+        const cardIndex = manifest.findIndex(m => m.slug === item.slug);
+        const card = originalCards[cardIndex];
+        if (card) {
+          card.style.display = 'block';
+          gallery.appendChild(card);
+        }
+      });
+    }
   }));
 
   // Lightbox
