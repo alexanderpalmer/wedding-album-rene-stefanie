@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="de">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0e0f12">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+    <meta name="author" content="Alexander Palmer">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self';">
+    <title>Hochzeitsalbum – René &amp; Stefanie</title>
+    <meta name="description" content="Ein liebevoll gestaltetes Fotoalbum der Hochzeit von René &amp; Stefanie.">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap"
+      rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preload" as="fetch" href="assets/manifest.json" crossorigin="anonymous">
+    <meta property="og:title" content="Hochzeitsalbum – René &amp; Stefanie">
+    <meta property="og:description" content="Ein liebevoll gestaltetes Fotoalbum der Hochzeit von René &amp; Stefanie.">
+    <meta property="og:type" content="website">
+  </head>
+
+  <body class="no-js">
+    <header class="site-header" role="banner">
+      <div class="wrap">
+        <h1 class="title">René &amp; Stefanie</h1>
+        <p class="subtitle">Hochzeitsalbum</p>
+      </div>
+    </header>
+
+    <main id="main" class="main" role="main">
+      <section class="intro" aria-label="Einführung">
+        <div class="wrap">
+          <p>Willkommen zu unserem Hochzeitsalbum. Tippe auf ein Foto, um es in voller Grösse zu betrachten. Mit
+            Wischgesten oder den Pfeiltasten kannst du navigieren.</p>
+          <div class="filters" role="toolbar" aria-label="Filter">
+            <!-- Filter werden dynamisch durch script.js generiert -->
+          </div>
+        </div>
+      </section>
+
+      <section class="gallery" id="gallery" aria-label="Fotogalerie">
+        <!-- Karten werden durch script.js aus assets/manifest.json erzeugt -->
+        <noscript>
+          <p class="noscript">Bitte aktiviere JavaScript, um die Galerie zu sehen.</p>
+        </noscript>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>Mit Liebe gestaltet · 13.08.2025 · Alexander Palmer</p>
+      </div>
+    </footer>
+
+    <!-- Lightbox Dialog -->
+    <div class="lightbox" id="lightbox" aria-hidden="true" aria-labelledby="lb-caption" role="dialog">
+      <button class="lb-prev" aria-label="Vorheriges Bild">‹</button>
+      <figure class="lb-figure">
+        <picture class="lb-picture">
+          <div class="lb-controls">
+            <button class="lb-close-inline" aria-label="Schließen">×</button>
+            <button class="lb-download" aria-label="Bild herunterladen">Herunterladen</button>
+          </div>
+        </picture>
+        <figcaption id="lb-caption" class="lb-caption"></figcaption>
+      </figure>
+      <button class="lb-next" aria-label="Nächstes Bild">›</button>
+    </div>
+
+    <script>document.body.classList.remove('no-js');</script>
+    <script src="script.js" defer></script>
+  </body>
+
+</html>
